@@ -30,7 +30,7 @@ This game keeps you from being bored because it puts you in a mindset of wanting
   4) Restart the game if Harry falls or doesn't make it through a goal post
 
   House based on points:
-  
+
   - **1 point** = Muggle
   - **50 points** = Hufflepuff
   - **100 points** = RavenClaw
@@ -44,3 +44,31 @@ This game keeps you from being bored because it puts you in a mindset of wanting
 ## Closing and Call to Action ##
 
 Stay tuned for more updates as version 1.1!
+
+## Requirements
+
+An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
+
+- Node 8.12.0
+- Nodemon
+- Webpack
+
+## Development
+
+### Installing Dependencies
+
+From within the root directory:
+
+```
+npm install -g webpack
+npm install -g nodemon
+npm install
+```
+
+## Usage 
+
+###### Client
+`npm run react-dev` to run webpack and watch
+
+###### Server
+`npm run server-dev` to start the server
