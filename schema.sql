@@ -1,14 +1,13 @@
-DROP DATABASE IF EXISTS test;
+DROP DATABASE IF EXISTS quidditch;
 
-CREATE DATABASE test;
+CREATE DATABASE quidditch;
 
-USE test;
+USE quidditch;
 
-CREATE TABLE items (
+CREATE TABLE games (
   id int NOT NULL AUTO_INCREMENT,
-  quantity integer NOT NULL,
-  description varchar(50) NOT NULL,
-  PRIMARY KEY (ID)
+  score integer NOT NULL,
+  PRIMARY KEY (id)
 );
 
 /*  Execute this file from the command line by typing:
