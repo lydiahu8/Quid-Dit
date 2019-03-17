@@ -1,10 +1,11 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
 const config = require('../config');
 
-var connection = mysql.createConnection(config);
+const connection = mysql.createConnection(config);
 
-var selectAll = function(callback) {
-  connection.query('SELECT * FROM items', function(err, results, fields) {
+const getAllGames = (callback) => {
+  const query = 'SELECT * FROM games;';
+  connection.query(query, function(err, results) {
     if(err) {
       callback(err, null);
     } else {
@@ -13,4 +14,6 @@ var selectAll = function(callback) {
   });
 };
 
-module.exports.selectAll = selectAll;
+module.exports = {
+  getAllGames
+};
