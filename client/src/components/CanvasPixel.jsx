@@ -4,7 +4,7 @@ const CanvasPixel = ({ pixelColor }) => {
   const style = {
     width: '3em',
     height: '3em',
-    border: '.5px solid black',
+    // border: '.5px solid black',
     backgroundColor: pixelColor,
   };
 

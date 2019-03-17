@@ -22,27 +22,27 @@ class App extends React.Component {
 
     let goalPosts = [
       {
-        height: Math.floor(Math.random() * 11) + 2,
+        height: Math.floor(Math.random() * 9) + 2,
         position: 4
       },
       {
-        height: Math.floor(Math.random() * 11) + 2,
+        height: Math.floor(Math.random() * 9) + 2,
         position: 9
       },
       {
-        height: Math.floor(Math.random() * 11) + 2,
+        height: Math.floor(Math.random() * 9) + 2,
         position: 14
       },
       {
-        height: Math.floor(Math.random() * 11) + 2,
+        height: Math.floor(Math.random() * 9) + 2,
         position: 19
       },
       {
-        height: Math.floor(Math.random() * 11) + 2,
+        height: Math.floor(Math.random() * 9) + 2,
         position: 24
       },
       {
-        height: Math.floor(Math.random() * 11) + 2,
+        height: Math.floor(Math.random() * 9) + 2,
         position: 29
       },
     ];
