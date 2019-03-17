@@ -7,22 +7,22 @@ const getAllGames = (callback) => {
   const query = 'SELECT * FROM games;';
   db.query(query, function (err, results) {
     if (err) {
-      callback(err, null);
-    } else {
-      callback(null, results);
+      callback(err);
+      return;
     }
+    callback(null, results);
   });
 };
 
 const addOneGame = (game, callback) => {
   const query = 'INSERT INTO games (score) VALUES (?);';
   const params = [game.score];
-  db.query(query, params, (err, results) => {
+  db.query(query, params, (err) => {
     if (err) {
-      callback(err, null);
-    } else {
-      callback(null, results);
+      callback(err);
+      return;
     }
+    callback(null);
   });
 }
 
