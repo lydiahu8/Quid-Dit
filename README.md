@@ -47,8 +47,6 @@ Stay tuned for more updates as version 1.1!
 
 ## Requirements
 
-An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
-
 - Node 8.12.0
 - Nodemon
 - Webpack
