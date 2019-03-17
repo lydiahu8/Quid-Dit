@@ -1,24 +1,23 @@
+var path = require('path');
+var DIST_DIR = path.join(__dirname, '/client/dist');
+var SRC_DIR = path.join(__dirname, '/client/src');
+
 module.exports = {
-  entry: './react-client/src/index.jsx',
-  module: {
-    rules: [{
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      use: ['babel-loader'],
-    }],
-  },
-  resolve: {
-    extensions: ['*', '.js', '.jsx'],
-  },
+  entry: `${SRC_DIR}/index.jsx`,
   output: {
-    path: `${__dirname}/react-client/dist`,
-    publicPath: '/',
     filename: 'bundle.js',
+    path: DIST_DIR
   },
-  devServer: {
-    contentBase: './react-client/dist',
-  },
-  externals: {
-    'styled-components': true,
-  },
+  module: {
+    rules: [
+      {
+        test: [/\.jsx$/],
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['env', 'react'],
+        }
+      }
+    ]
+  }
 };
