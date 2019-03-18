@@ -1,38 +1,34 @@
 const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
+var morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+var passport = require('passport');
+var flash = require('connect-flash');
 const {
   getAllGames,
+  getAllGamesByUser,
+  addOneUser,
   addOneGame
-} = require('../database');
+} = require('../controllers/games');
 
 const app = express();
-let port = 3000;
+let port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 
-app.get('/games', (req, res) => {
-  getAllGames((err, data) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send(data);
-    }
-  });
-});
+// Gets all games played by all users
+app.get('/games', getAllGames);
 
-app.post('/games', (req, res) => {
-  const {
-    body
-  } = req;
-  addOneGame(body, (err) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(201).send(body);
-    }
-  });
-});
+// Gets all games for one user
+app.get('/games/:id', getAllGamesByUser);
+
+// Add one user
+app.post('/games', addOneUser);
+
+//Add one game to games table
+app.post('/games', addOneGame);
 
 app.listen(port, () => {
   console.log('listening on port 3000!');
