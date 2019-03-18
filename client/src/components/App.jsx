@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Canvas from './Canvas.jsx';
 
 class App extends React.Component {
@@ -44,6 +45,7 @@ class App extends React.Component {
     //Default State of game
     this.state = {
       score: 0,
+      highScore: 0,
       canvas: canvas,
       character: character,
       goalPosts: goalPosts,
@@ -54,16 +56,38 @@ class App extends React.Component {
     this.handleCharClick = this.handleCharClick.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.resetGame = this.resetGame.bind(this);
+    this.handleCharDrop = this.handleCharDrop.bind(this);
   }
 
   componentDidMount() {
     // Sets a time for the character to drop
-    this.charDrop = setInterval(() => this.handleCharDrop(), 200);
+    this.charDrop = setInterval(() => this.handleCharDrop(), 100);
+    this.getHighScore();
     document.addEventListener('keypress', this.handleKeyPress);
   }
 
   componentWillUnmount() {
     document.removeEventListener('keypress', this.handleKeyPress);
+  }
+
+  getHighScore() {
+    axios.get(`/games`)
+      .then((res) => {
+        let highest = 0;
+        for (let i = 0; i < res.data.length; i++) {
+          if (res.data[i].score > highest) {
+            highest = res.data[i].score;
+          }
+        }
+        this.setState({
+          highScore: highest
+        })
+      })
+  }
+
+  addScore(score) {
+    axios.post(`/games`, score)
+      .then(this.getHighScore())
   }
 
   // Changes the position of the character when falling until the ground
@@ -112,6 +136,7 @@ class App extends React.Component {
         char.y_axis = 23;
         char.x_axis = 3;
         success = false;
+        this.addScore({ score: this.state.score + 1 })
       }
     }
 
@@ -121,13 +146,20 @@ class App extends React.Component {
       })
     }
 
-    canvas2[char.y_axis][char.x_axis] = '#ccffe6';
+    canvas2[char.y_axis][char.x_axis] = '#bbff99';
 
     this.setState({
       canvas: canvas2,
       character: char,
       goalPosts: goalPosts2,
     })
+
+    // Increments score by 1 point every time character passes goal post
+    for (let i = 0; i < goalPosts2.length; i++) {
+      this.setState({
+        score: goalPosts2[i].position === 3 && this.state.success ? this.state.score += 1 : this.state.score
+      })
+    }
   };
 
   handleCharClick(event) {
@@ -159,18 +191,21 @@ class App extends React.Component {
     char.y_axis = 7;
     char.x_axis = 3;
     this.setState({
+      score: 0,
       character: char,
       success: true,
     })
   }
 
   render() {
-    const { canvas } = this.state;
+    const { canvas, score, highScore } = this.state;
     const { handleCharClick } = this;
     return (
       <div onClick={handleCharClick}>
+        <button onClick={this.resetGame}>Reset Game</button>
+        Score: {score}
+        High Score: {highScore}
         <Canvas canvas={canvas} />
-        {!this.state.success ? <button onClick={this.resetGame}>Reset Game</button> : null}
       </div>
     );
   }
