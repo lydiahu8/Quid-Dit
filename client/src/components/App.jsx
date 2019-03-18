@@ -7,17 +7,17 @@ class App extends React.Component {
 
     // Creates background for the game
     let canvas = [];
-    let height = 24;
-    while (height > 0) {
+    let rows = 24;
+    while (rows > 0) {
       let innerCanvas = new Array(45);
       canvas.push(innerCanvas.fill('#b3e6ff'));
-      height--;
+      rows--;
     }
 
     // Sets the starting position of the character
     let character = {
       y_axis: 7,
-      x_axis: 1
+      x_axis: 3
     }
 
     // Generates height of goal posts randomly
@@ -34,7 +34,7 @@ class App extends React.Component {
     for (let i = 9; i < canvas[0].length + 1; i += 9) {
       let pole = {};
       pole.height = randomHeight(5, 17);
-      pole.position = i
+      pole.position = i;
       goalPosts.push(pole);
     }
 
@@ -48,15 +48,15 @@ class App extends React.Component {
       character: character,
       goalPosts: goalPosts,
       currentKey: '',
+      success: true,
     };
-
-    // Sets a time for the character to drop
 
     this.handleCharClick = this.handleCharClick.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   componentDidMount() {
+    // Sets a time for the character to drop
     this.charDrop = setInterval(() => this.handleCharDrop(), 200);
     document.addEventListener('keypress', this.handleKeyPress);
   }
@@ -67,20 +67,23 @@ class App extends React.Component {
 
   // Changes the position of the character when falling until the ground
   handleCharDrop() {
+    if (!this.state.success) {
+      return;
+    }
     let canvas2 = [];
-    let height2 = 24;
+    let rows2 = 24;
     let goalPosts2 = this.state.goalPosts.slice();
 
-    while (height2 > 0) {
+    while (rows2 > 0) {
       let innerCanvas2 = new Array(45);
       canvas2.push(innerCanvas2.fill('#b3e6ff'));
-      height2--;
+      rows2--;
     }
 
     for (let i = 0; i < goalPosts2.length; i++) {
       goalPosts2[i].position -= 1;
       if (goalPosts2[i].position < 0) {
-        goalPosts2[i].height = Math.floor(Math.random() * 11) + 2;
+        goalPosts2[i].height = Math.floor(Math.random() * 17) + 5;
         goalPosts2[i].position = 44;
       }
     }
@@ -92,16 +95,37 @@ class App extends React.Component {
       }
     }
 
+    // Character falls down until it hits the ground
     let char = this.state.character;
+    let success = true;
     char.y_axis++;
+
     if (char.y_axis > 23 || char.y_axis < 0) {
       char.y_axis = 23;
+      success = false;
     }
+
+    // Goal Post Collision Detection
+    for (let i = 0; i < 24; i++) {
+      if (canvas2[i][3] === '#ffffe6' && char.y_axis === i) {
+        char.y_axis = 23;
+        char.x_axis = 4;
+        success = false;
+      }
+    }
+
+    if (!success) {
+      this.setState({
+        success: success
+      })
+    }
+
     canvas2[char.y_axis][char.x_axis] = '#ccffe6';
 
     this.setState({
       canvas: canvas2,
       character: char,
+      goalPosts: goalPosts2,
     })
   };
 
