@@ -33,7 +33,7 @@ class App extends React.Component {
 
     for (let i = 9; i < canvas[0].length + 1; i += 9) {
       let pole = {};
-      pole.height = randomHeight(5, 17);
+      pole.height = randomHeight(4, 14);
       pole.position = i;
       goalPosts.push(pole);
     }
@@ -53,6 +53,7 @@ class App extends React.Component {
 
     this.handleCharClick = this.handleCharClick.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.resetGame = this.resetGame.bind(this);
   }
 
   componentDidMount() {
@@ -83,7 +84,7 @@ class App extends React.Component {
     for (let i = 0; i < goalPosts2.length; i++) {
       goalPosts2[i].position -= 1;
       if (goalPosts2[i].position < 0) {
-        goalPosts2[i].height = Math.floor(Math.random() * 17) + 5;
+        goalPosts2[i].height = Math.floor(Math.random() * 14) + 4;
         goalPosts2[i].position = 44;
       }
     }
@@ -109,7 +110,7 @@ class App extends React.Component {
     for (let i = 0; i < 24; i++) {
       if (canvas2[i][3] === '#ffffe6' && char.y_axis === i) {
         char.y_axis = 23;
-        char.x_axis = 4;
+        char.x_axis = 3;
         success = false;
       }
     }
@@ -152,12 +153,24 @@ class App extends React.Component {
     }
   }
 
+  resetGame(event) {
+    event.preventDefault();
+    let char = this.state.character;
+    char.y_axis = 7;
+    char.x_axis = 3;
+    this.setState({
+      character: char,
+      success: true,
+    })
+  }
+
   render() {
     const { canvas } = this.state;
     const { handleCharClick } = this;
     return (
       <div onClick={handleCharClick}>
         <Canvas canvas={canvas} />
+        {!this.state.success ? <button onClick={this.resetGame}>Reset Game</button> : null}
       </div>
     );
   }
