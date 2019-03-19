@@ -4,7 +4,6 @@ import CanvasPixel from './CanvasPixel.jsx';
 const CanvasRow = ({ row }) => {
   const style = {
     display: 'flex',
-    zIndex: '5',
   };
 
   return (
