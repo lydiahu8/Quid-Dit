@@ -42,8 +42,8 @@ const addOneUser = (user, callback) => {
 
 //Add one game to games table
 const addOneGame = (game, callback) => {
-  const query = `INSERT INTO games (score, user_id) VALUES (?, ?);`;
-  const params = [game.score, game.user_id];
+  const query = `INSERT INTO games (score) VALUES (?);`;
+  const params = [game.score];
   db.query(query, params, (err) => {
     if (err) {
       callback(err);
