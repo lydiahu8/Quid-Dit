@@ -111,16 +111,16 @@ class App extends React.Component {
 
     while (rows2 > 0) {
       let innerCanvas2 = new Array(45);
-      if (this.state.score < 5) {
+      if (this.state.score < 20) {
         // Muggle
         canvas2.push(innerCanvas2.fill('rgba(230, 230, 255, 0)'));
-      } else if (this.state.score >= 5 && this.state.score < 10) {
+      } else if (this.state.score >= 20 && this.state.score < 40) {
         // HufflePuff
         canvas2.push(innerCanvas2.fill('rgba(255, 255, 179, 0)'));
-      } else if (this.state.score >= 10 && this.state.score < 15) {
+      } else if (this.state.score >= 40 && this.state.score < 60) {
         // RavenClaw
         canvas2.push(innerCanvas2.fill('rgba(179, 230, 255,0)'));
-      } else if (this.state.score >= 15 && this.state.score < 20) {
+      } else if (this.state.score >= 60 && this.state.score < 80) {
         // Slytherin
         canvas2.push(innerCanvas2.fill('rgba(204, 255, 204, 0)'));
       } else {
