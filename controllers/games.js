@@ -11,7 +11,7 @@ module.exports = {
     })
   },
   getAllGamesByUser: (req, res) => {
-    db.getAllGamesByUser((err, data) => {
+    db.getAllGamesByUser(id, (err, data) => {
       if (err) {
         res.status(500).send(err);
       } else {

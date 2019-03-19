@@ -29,8 +29,8 @@ const getAllGamesByUser = (id, callback) => {
 
 // Add one user
 const addOneUser = (user, callback) => {
-  const query = `INSERT into users (username, password)  VALUES (?, ?);`;
-  const params = [user.username, user.password];
+  const query = `INSERT into users (username)  VALUES (?);`;
+  const params = [user.username];
   db.query(query, params, (err) => {
     if (err) {
       callback(err);
