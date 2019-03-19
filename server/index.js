@@ -46,7 +46,7 @@ app.get('/games', getAllGames);
 app.get('/games/:id', getAllGamesByUser);
 
 // Add one user
-app.post('/games', addOneUser);
+app.post('/games/player', addOneUser);
 
 //Add one game to games table
 app.post('/games', addOneGame);
