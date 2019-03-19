@@ -4,7 +4,7 @@ import CanvasRow from './CanvasRow.jsx';
 const Canvas = ({ canvas }) => {
 
   const style = {
-    backgroundColor: '#b3e6ff',
+    background: 'auto',
   };
 
   return (
