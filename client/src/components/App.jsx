@@ -209,16 +209,19 @@ class App extends React.Component {
     const { handleCharClick } = this;
     return (
       <div onClick={handleCharClick}>
-
-        <Button type="submit" value="Reset Game" onClick={this.resetGame} />
-        <span>
+        <Wrapper>
+          <Title>Quid-Dit</Title>
+          <HighScore>
+            High Score: {highScore}
+          </HighScore>
+          <span>
+            <Button type="submit" value="Reset Game" onClick={this.resetGame} />
+          </span>
+        </Wrapper>
+        <Score>
           Score: {score}
-        </span>
-        <span>
-          High Score: {highScore}
-        </span>
-        <Canvas canvas={canvas}>
-        </Canvas>
+        </Score>
+        <Canvas canvas={canvas} />
       </div>
     );
   }
@@ -226,11 +229,11 @@ class App extends React.Component {
 
 export default App;
 
-const Button = styled.button`
+const Button = styled.input`
   display: block;
   position: absolute;
-  top: 7%;
-  left: 1%;
+  top: 1.5%;
+  right: 1%;
   color: white;
   background-color: #b3e6ff;
   border: 1px solid white;
@@ -243,6 +246,41 @@ const Button = styled.button`
   outline: none;
 `;
 
-const Score = styled.div`
+const HighScore = styled.span`
+  display: block;
+  position: absolute;
+  color: white;
+  top: 1.5%;
+  left: 2%;
+  z-index: 99;
+  font-weight: bold;
+  font-size: 2em;
+`;
 
+const Score = styled.span`
+  display: block;
+  position: absolute;
+  color: white;
+  top: 8%;
+  left: 42.5%;
+  z-index: 99;
+  font-weight: bold;
+  font-size: 2em;
+`;
+
+const Title = styled.span`
+  display: flex;
+  position: absolute;
+  color: white;
+  top: 1%;
+  left: 40%;
+  z-index: 99;
+  font-weight: bold;
+  font-size: 3em;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: rows;
+  justify-content: space-between;
 `;
