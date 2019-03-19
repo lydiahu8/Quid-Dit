@@ -10,9 +10,9 @@ class App extends React.Component {
 
     // Creates background for the game
     let canvas = [];
-    let rows = 24;
+    let rows = 16;
     while (rows > 0) {
-      let innerCanvas = new Array(45);
+      let innerCanvas = new Array(28);
       canvas.push(innerCanvas.fill('#b3e6ff'));
       rows--;
     }
@@ -36,13 +36,13 @@ class App extends React.Component {
 
     for (let i = 9; i < canvas[0].length + 1; i += 9) {
       let pole = {};
-      pole.height = randomHeight(4, 14);
+      pole.height = randomHeight(3, 10);
       pole.position = i;
       goalPosts.push(pole);
     }
 
     // Sets the background color of the character
-    canvas[character.y_axis][character.x_axis] = '#e0d543';
+    canvas[character.y_axis][character.x_axis] = '#ffffe6';
 
     //Default State of game
     this.state = {
@@ -101,11 +101,11 @@ class App extends React.Component {
       return;
     }
     let canvas2 = [];
-    let rows2 = 24;
+    let rows2 = 16;
     let goalPosts2 = this.state.goalPosts.slice();
 
     while (rows2 > 0) {
-      let innerCanvas2 = new Array(45);
+      let innerCanvas2 = new Array(28);
       canvas2.push(innerCanvas2.fill('#b3e6ff'));
       rows2--;
     }
@@ -113,15 +113,19 @@ class App extends React.Component {
     for (let i = 0; i < goalPosts2.length; i++) {
       goalPosts2[i].position -= 1;
       if (goalPosts2[i].position < 0) {
-        goalPosts2[i].height = Math.floor(Math.random() * 14) + 4;
-        goalPosts2[i].position = 44;
+        goalPosts2[i].height = Math.floor(Math.random() * 10) + 3;
+        goalPosts2[i].position = 27;
       }
     }
 
     // Creates the goal posts
     for (let i = 0; i < goalPosts2.length; i++) {
       for (let j = 0; j < goalPosts2[i].height; j++) {
-        canvas2[23 - j][goalPosts2[i].position] = '#ffffe6';
+        if (j !== goalPosts2[i].height - 1) {
+          canvas2[15 - j][goalPosts2[i].position] = '#fffda8';
+        } else {
+          canvas2[15 - j][goalPosts2[i].position] = '#f7d247';
+        }
       }
     }
 
@@ -130,15 +134,15 @@ class App extends React.Component {
     let success = true;
     char.y_axis++;
 
-    if (char.y_axis > 23 || char.y_axis < 0) {
-      char.y_axis = 23;
+    if (char.y_axis > 15 || char.y_axis < 0) {
+      char.y_axis = 15;
       success = false;
     }
 
     // Goal Post Collision Detection
-    for (let i = 0; i < 24; i++) {
-      if (canvas2[i][3] === '#ffffe6' && char.y_axis === i) {
-        char.y_axis = 23;
+    for (let i = 0; i < 16; i++) {
+      if (canvas2[i][3] === '#fffda8' && char.y_axis === i) {
+        char.y_axis = 15;
         char.x_axis = 4;
         success = false;
         this.addScore({
@@ -153,7 +157,7 @@ class App extends React.Component {
       })
     }
 
-    canvas2[char.y_axis][char.x_axis] = '#e0d543';
+    canvas2[char.y_axis][char.x_axis] = '#ffffe6';
 
     this.setState({
       canvas: canvas2,

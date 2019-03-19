@@ -5,6 +5,7 @@ const Canvas = ({ canvas }) => {
 
   const style = {
     background: 'auto',
+    backgroundColor: '#b3e6ff'
   };
 
   return (
