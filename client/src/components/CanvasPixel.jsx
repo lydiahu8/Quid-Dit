@@ -7,7 +7,6 @@ const CanvasPixel = ({ pixelColor }) => {
     height: '2em',
     // backgroundColor: pixelColor,
     // borderRadius: '80%',
-    
     content: `url("https://i.pinimg.com/originals/15/f7/70/15f770c0e6a9d74fc987d026c36be2eb.png")`
   };
 

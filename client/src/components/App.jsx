@@ -209,13 +209,14 @@ class App extends React.Component {
     const { handleCharClick } = this;
     return (
       <div onClick={handleCharClick}>
-        <div>
-          Score: {score}
-        </div>
-        <div>
-          High Score: {highScore}
-        </div>
+
         <Button type="submit" value="Reset Game" onClick={this.resetGame} />
+        <span>
+          Score: {score}
+        </span>
+        <span>
+          High Score: {highScore}
+        </span>
         <Canvas canvas={canvas}>
         </Canvas>
       </div>
