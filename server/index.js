@@ -5,6 +5,7 @@ const morgan = require('morgan');
 // const cookieParser = require('cookie-parser');
 // const passport = require('passport');
 // const flash = require('connect-flash');
+const cors = require('cors');
 
 const {
   getAllGames,
@@ -16,10 +17,11 @@ const {
 // Passport Configuration
 // require('../config/passport')(passport);
 
+
 const app = express();
 let port = process.env.PORT || 3000;
 
-
+app.use(cors());
 // Set up for Express
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(morgan('dev'));
