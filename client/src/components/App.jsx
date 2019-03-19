@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Canvas from './Canvas.jsx';
+import styled from 'styled-components';
+// import LoginForm from './LoginForm.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -40,34 +42,37 @@ class App extends React.Component {
     }
 
     // Sets the background color of the character
-    canvas[character.y_axis][character.x_axis] = '#ccffe6';
+    canvas[character.y_axis][character.x_axis] = '#e0d543';
 
     //Default State of game
     this.state = {
       score: 0,
       highScore: 0,
       canvas: canvas,
+      image: '',
       character: character,
       goalPosts: goalPosts,
       currentKey: '',
       success: true,
+      page: 0,
     };
 
     this.handleCharClick = this.handleCharClick.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.resetGame = this.resetGame.bind(this);
-    this.handleCharDrop = this.handleCharDrop.bind(this);
+    this.handleGamePlay = this.handleGamePlay.bind(this);
+    // this.addPlayer = this.addPlayer.bind(this);
+
   }
 
   componentDidMount() {
-    // Sets a time for the character to drop
-    this.charDrop = setInterval(() => this.handleCharDrop(), 100);
-    this.getHighScore();
-    document.addEventListener('keypress', this.handleKeyPress);
+    this.gamePlay = setInterval(() => this.handleGamePlay(), 100)
+    this.getHighScore()
+    document.addEventListener('keyup', this.handleKeyPress);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keypress', this.handleKeyPress);
+    document.removeEventListener('keyup', this.handleKeyPress);
   }
 
   getHighScore() {
@@ -91,7 +96,7 @@ class App extends React.Component {
   }
 
   // Changes the position of the character when falling until the ground
-  handleCharDrop() {
+  handleGamePlay() {
     if (!this.state.success) {
       return;
     }
@@ -134,9 +139,11 @@ class App extends React.Component {
     for (let i = 0; i < 24; i++) {
       if (canvas2[i][3] === '#ffffe6' && char.y_axis === i) {
         char.y_axis = 23;
-        char.x_axis = 3;
+        char.x_axis = 4;
         success = false;
-        this.addScore({ score: this.state.score + 1 })
+        this.addScore({
+          score: this.state.score + 1,
+        });
       }
     }
 
@@ -146,7 +153,7 @@ class App extends React.Component {
       })
     }
 
-    canvas2[char.y_axis][char.x_axis] = '#bbff99';
+    canvas2[char.y_axis][char.x_axis] = '#e0d543';
 
     this.setState({
       canvas: canvas2,
@@ -202,10 +209,15 @@ class App extends React.Component {
     const { handleCharClick } = this;
     return (
       <div onClick={handleCharClick}>
-        <button onClick={this.resetGame}>Reset Game</button>
-        Score: {score}
-        High Score: {highScore}
-        <Canvas canvas={canvas} />
+        <div>
+          Score: {score}
+        </div>
+        <div>
+          High Score: {highScore}
+        </div>
+        <Button type="submit" value="Reset Game" onClick={this.resetGame} />
+        <Canvas canvas={canvas}>
+        </Canvas>
       </div>
     );
   }
@@ -213,3 +225,23 @@ class App extends React.Component {
 
 export default App;
 
+const Button = styled.button`
+  display: block;
+  position: absolute;
+  top: 7%;
+  left: 1%;
+  color: white;
+  background-color: #b3e6ff;
+  border: 1px solid white;
+  z-index: 99;
+  text-align: center;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 2em;
+  box-shadow: 3px 3px 20px -5px rgba(255,255,255,255);
+  outline: none;
+`;
+
+const Score = styled.div`
+
+`;
