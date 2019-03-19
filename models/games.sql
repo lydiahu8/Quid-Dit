@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS quidditt;
+DROP DATABASE IF EXISTS quidditch;
 
-CREATE DATABASE quidditt;
+CREATE DATABASE quidditch;
 
-USE quidditt;
+USE quidditch;
 
 CREATE TABLE games (
   id int NOT NULL AUTO_INCREMENT,
