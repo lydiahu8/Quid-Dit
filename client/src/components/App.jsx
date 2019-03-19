@@ -10,9 +10,9 @@ class App extends React.Component {
 
     // Creates background for the game
     let canvas = [];
-    let rows = 16;
+    let rows = 24;
     while (rows > 0) {
-      let innerCanvas = new Array(28);
+      let innerCanvas = new Array(45);
       canvas.push(innerCanvas.fill('#b3e6ff'));
       rows--;
     }
@@ -34,10 +34,15 @@ class App extends React.Component {
     // Creates fixed amount of goal posts displayed per screen
     let goalPosts = [];
 
-    for (let i = 9; i < canvas[0].length + 1; i += 9) {
+    for (let i = 5; i < canvas[0].length + 1; i += 7) {
       let pole = {};
-      pole.height = randomHeight(3, 10);
+      pole.height = randomHeight(6, 10);
       pole.position = i;
+      if (i % 2 === 0) {
+        pole.top = true;
+      } else {
+        pole.top = false;
+      }
       goalPosts.push(pole);
     }
 
@@ -61,12 +66,10 @@ class App extends React.Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.resetGame = this.resetGame.bind(this);
     this.handleGamePlay = this.handleGamePlay.bind(this);
-    // this.addPlayer = this.addPlayer.bind(this);
-
   }
 
   componentDidMount() {
-    this.gamePlay = setInterval(() => this.handleGamePlay(), 100)
+    this.gamePlay = setInterval(() => this.handleGamePlay(), 200)
     this.getHighScore()
     document.addEventListener('keyup', this.handleKeyPress);
   }
@@ -101,11 +104,11 @@ class App extends React.Component {
       return;
     }
     let canvas2 = [];
-    let rows2 = 16;
+    let rows2 = 24;
     let goalPosts2 = this.state.goalPosts.slice();
 
     while (rows2 > 0) {
-      let innerCanvas2 = new Array(28);
+      let innerCanvas2 = new Array(45);
       canvas2.push(innerCanvas2.fill('#b3e6ff'));
       rows2--;
     }
@@ -113,18 +116,26 @@ class App extends React.Component {
     for (let i = 0; i < goalPosts2.length; i++) {
       goalPosts2[i].position -= 1;
       if (goalPosts2[i].position < 0) {
-        goalPosts2[i].height = Math.floor(Math.random() * 10) + 3;
-        goalPosts2[i].position = 27;
+        goalPosts2[i].height = Math.floor(Math.random() * 10) + 6;
+        goalPosts2[i].position = 44;
       }
     }
 
     // Creates the goal posts
     for (let i = 0; i < goalPosts2.length; i++) {
       for (let j = 0; j < goalPosts2[i].height; j++) {
-        if (j !== goalPosts2[i].height - 1) {
-          canvas2[15 - j][goalPosts2[i].position] = '#fffda8';
+        if (!goalPosts2[i].top) {
+          if (j !== goalPosts2[i].height - 1) {
+            canvas2[23 - j][goalPosts2[i].position] = '#fffda8';
+          } else {
+            canvas2[23 - j][goalPosts2[i].position] = '#f7d247';
+          }
         } else {
-          canvas2[15 - j][goalPosts2[i].position] = '#f7d247';
+          if (j !== goalPosts2[i].height - 1) {
+            canvas2[j][goalPosts2[i].position] = '#fffda8';
+          } else {
+            canvas2[j][goalPosts2[i].position] = '#f7d247';
+          }
         }
       }
     }
@@ -134,19 +145,19 @@ class App extends React.Component {
     let success = true;
     char.y_axis++;
 
-    if (char.y_axis > 15 || char.y_axis < 0) {
-      char.y_axis = 15;
+    if (char.y_axis > 23 || char.y_axis < 0) {
+      char.y_axis = 23;
       success = false;
     }
 
     // Goal Post Collision Detection
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < 24; i++) {
       if (canvas2[i][3] === '#fffda8' && char.y_axis === i) {
-        char.y_axis = 15;
+        char.y_axis = 23;
         char.x_axis = 4;
         success = false;
         this.addScore({
-          score: this.state.score + 1,
+          score: this.state.score,
         });
       }
     }
