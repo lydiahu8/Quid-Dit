@@ -1,7 +1,7 @@
 import React from 'react';
 import CanvasPixel from './CanvasPixel.jsx';
 
-const CanvasRow = ({ row }) => {
+const CanvasRow = ({ row, score }) => {
   const style = {
     display: 'flex',
   };
@@ -10,7 +10,7 @@ const CanvasRow = ({ row }) => {
     <div style={style}>
       {
         row.map((pixel) => (
-          <CanvasPixel pixelColor={pixel} />
+          <CanvasPixel score={score} pixelColor={pixel} />
         ))
       }
     </div>

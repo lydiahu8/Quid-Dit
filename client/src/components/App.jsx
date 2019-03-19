@@ -13,7 +13,7 @@ class App extends React.Component {
     let rows = 24;
     while (rows > 0) {
       let innerCanvas = new Array(45);
-      canvas.push(innerCanvas.fill('#b3e6ff'));
+      canvas.push(innerCanvas.fill('rgba(230, 230, 255, 0.1)'));
       rows--;
     }
 
@@ -69,7 +69,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.gamePlay = setInterval(() => this.handleGamePlay(), 200)
+    setTimeout(() => {
+      setInterval(() => this.handleGamePlay(), 100)
+    }, 400);
     this.getHighScore()
     document.addEventListener('keyup', this.handleKeyPress);
   }
@@ -109,7 +111,22 @@ class App extends React.Component {
 
     while (rows2 > 0) {
       let innerCanvas2 = new Array(45);
-      canvas2.push(innerCanvas2.fill('#b3e6ff'));
+      if (this.state.score < 5) {
+        // Muggle
+        canvas2.push(innerCanvas2.fill('rgba(230, 230, 255, 0)'));
+      } else if (this.state.score >= 5 && this.state.score < 10) {
+        // HufflePuff
+        canvas2.push(innerCanvas2.fill('rgba(255, 255, 179, 0)'));
+      } else if (this.state.score >= 10 && this.state.score < 15) {
+        // RavenClaw
+        canvas2.push(innerCanvas2.fill('rgba(179, 230, 255,0)'));
+      } else if (this.state.score >= 15 && this.state.score < 20) {
+        // Slytherin
+        canvas2.push(innerCanvas2.fill('rgba(204, 255, 204, 0)'));
+      } else {
+        // Gryffindor
+        canvas2.push(innerCanvas2.fill('rgba(255, 230, 230, 0)'));
+      }
       rows2--;
     }
 
@@ -187,7 +204,7 @@ class App extends React.Component {
   handleCharClick(event) {
     event.preventDefault();
     let char = this.state.character;
-    char.y_axis -= 2;
+    char.y_axis -= 3;
     this.setState({
       character: char,
     })
@@ -200,7 +217,7 @@ class App extends React.Component {
     });
     if (this.state.currentKey === 32) {
       let char = this.state.character;
-      char.y_axis -= 2;
+      char.y_axis -= 3;
       this.setState({
         character: char,
       });
@@ -225,7 +242,7 @@ class App extends React.Component {
     return (
       <div onClick={handleCharClick}>
         <Wrapper>
-          <Title>Quid-Dit</Title>
+          <Title>QUID-DIT</Title>
           <HighScore>
             High Score: {highScore}
           </HighScore>
@@ -236,7 +253,7 @@ class App extends React.Component {
         <Score>
           Score: {score}
         </Score>
-        <Canvas canvas={canvas} />
+        <Canvas canvas={canvas} score={score} />
       </div>
     );
   }
@@ -250,11 +267,11 @@ const Button = styled.input`
   top: 1.5%;
   right: 1%;
   color: white;
-  background-color: #b3e6ff;
+  background-color: rgba(179, 230, 255,0);
   border: 1px solid white;
   z-index: 99;
   text-align: center;
-  padding: 5px;
+  padding: 8px;
   font-weight: bold;
   font-size: 2em;
   box-shadow: 3px 3px 20px -5px rgba(255,255,255,255);
@@ -276,14 +293,14 @@ const Score = styled.span`
   display: block;
   position: absolute;
   color: white;
-  top: 8%;
-  left: 42.5%;
+  top: 10%;
+  left: 44.75%;
   z-index: 99;
   font-weight: bold;
   font-size: 2em;
 `;
 
-const Title = styled.span`
+const Title = styled.div`
   display: flex;
   position: absolute;
   color: white;
@@ -291,7 +308,8 @@ const Title = styled.span`
   left: 40%;
   z-index: 99;
   font-weight: bold;
-  font-size: 3em;
+  font-size: 4em;
+  text-shadow: 4px 4px 7px rgba(209,209,209,0.76);
 `;
 
 const Wrapper = styled.div`
