@@ -71,7 +71,7 @@ class App extends React.Component {
   componentDidMount() {
     setTimeout(() => {
       setInterval(() => this.handleGamePlay(), 100)
-    }, 400);
+    }, 500);
     this.getHighScore()
     document.addEventListener('keyup', this.handleKeyPress);
   }
@@ -111,16 +111,16 @@ class App extends React.Component {
 
     while (rows2 > 0) {
       let innerCanvas2 = new Array(45);
-      if (this.state.score < 20) {
+      if (this.state.score < 10) {
         // Muggle
         canvas2.push(innerCanvas2.fill('rgba(230, 230, 255, 0)'));
-      } else if (this.state.score >= 20 && this.state.score < 40) {
+      } else if (this.state.score >= 10 && this.state.score < 20) {
         // HufflePuff
         canvas2.push(innerCanvas2.fill('rgba(255, 255, 179, 0)'));
-      } else if (this.state.score >= 40 && this.state.score < 60) {
+      } else if (this.state.score >= 20 && this.state.score < 30) {
         // RavenClaw
         canvas2.push(innerCanvas2.fill('rgba(179, 230, 255,0)'));
-      } else if (this.state.score >= 60 && this.state.score < 80) {
+      } else if (this.state.score >= 30 && this.state.score < 40) {
         // Slytherin
         canvas2.push(innerCanvas2.fill('rgba(204, 255, 204, 0)'));
       } else {
