@@ -20,7 +20,7 @@ class App extends React.Component {
     // Sets the starting position of the character
     let character = {
       y_axis: 7,
-      x_axis: 3
+      x_axis: 15
     }
 
     // Generates height of goal posts randomly
@@ -169,9 +169,9 @@ class App extends React.Component {
 
     // Goal Post Collision Detection
     for (let i = 0; i < 24; i++) {
-      if (canvas2[i][3] === '#fffda8' && char.y_axis === i) {
+      if (canvas2[i][15] === '#fffda8' && char.y_axis === i) {
         char.y_axis = 23;
-        char.x_axis = 4;
+        char.x_axis = 16;
         success = false;
         this.addScore({
           score: this.state.score,
@@ -196,7 +196,7 @@ class App extends React.Component {
     // Increments score by 1 point every time character passes goal post
     for (let i = 0; i < goalPosts2.length; i++) {
       this.setState({
-        score: goalPosts2[i].position === 3 && this.state.success ? this.state.score += 1 : this.state.score
+        score: goalPosts2[i].position === 15 && this.state.success ? this.state.score += 1 : this.state.score
       })
     }
   };
@@ -228,7 +228,7 @@ class App extends React.Component {
     event.preventDefault();
     let char = this.state.character;
     char.y_axis = 7;
-    char.x_axis = 3;
+    char.x_axis = 15;
     this.setState({
       score: 0,
       character: char,
