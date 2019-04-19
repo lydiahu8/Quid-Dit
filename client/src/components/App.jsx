@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import Canvas from './Canvas.jsx';
 import styled from 'styled-components';
-// import LoginForm from './LoginForm.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -111,16 +110,16 @@ class App extends React.Component {
 
     while (rows2 > 0) {
       let innerCanvas2 = new Array(45);
-      if (this.state.score < 10) {
+      if (this.state.score < 50) {
         // Muggle
         canvas2.push(innerCanvas2.fill('rgba(230, 230, 255, 0)'));
-      } else if (this.state.score >= 10 && this.state.score < 20) {
+      } else if (this.state.score >= 50 && this.state.score < 100) {
         // HufflePuff
         canvas2.push(innerCanvas2.fill('rgba(255, 255, 179, 0)'));
-      } else if (this.state.score >= 20 && this.state.score < 30) {
+      } else if (this.state.score >= 100 && this.state.score < 200) {
         // RavenClaw
         canvas2.push(innerCanvas2.fill('rgba(179, 230, 255,0)'));
-      } else if (this.state.score >= 30 && this.state.score < 40) {
+      } else if (this.state.score >= 200 && this.state.score < 300) {
         // Slytherin
         canvas2.push(innerCanvas2.fill('rgba(204, 255, 204, 0)'));
       } else {
