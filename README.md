@@ -30,4 +30,4 @@ npm install
 `npm run react-dev` to run webpack and watch
 
 ###### Server
-`npm run server-dev` to start the server
+`npm run start` to start the server
