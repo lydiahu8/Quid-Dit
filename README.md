@@ -1,6 +1,4 @@
-# MVP #
-
-## Quid-Dit ##
+# Quid-Dit
 
 A game where players will be playing as Harry Potter riding on a broom while flying through the goal posts.
 
