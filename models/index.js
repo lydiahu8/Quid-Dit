@@ -15,31 +15,6 @@ const getAllGames = (callback) => {
   });
 };
 
-// Gets all games for one user
-const getAllGamesByUser = (id, callback) => {
-  const query = `SELECT * FROM games INNER JOIN users ON games.user_id = users.id WHERE games.user_id = ${id};`;
-  db.query(query, function (err, results) {
-    if (err) {
-      callback(err);
-      return;
-    }
-    callback(null, results);
-  });
-};
-
-// Add one user
-const addOneUser = (user, callback) => {
-  const query = `INSERT into users (username)  VALUES (?);`;
-  const params = [user.username];
-  db.query(query, params, (err) => {
-    if (err) {
-      callback(err);
-      return;
-    }
-    callback(null);
-  });
-}
-
 //Add one game to games table
 const addOneGame = (game, callback) => {
   const query = `INSERT INTO games (score) VALUES (?);`;
@@ -55,7 +30,5 @@ const addOneGame = (game, callback) => {
 
 module.exports = {
   getAllGames,
-  getAllGamesByUser,
-  addOneUser,
   addOneGame
 };
